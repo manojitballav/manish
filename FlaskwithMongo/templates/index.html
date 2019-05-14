@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <title>{{t}}</title>
+        <!-- href="/static/assets/style.css"-->
+        <link rel="stylesheet" type="text/css"  href="{{ url_for('static',filename='assets/style.css')}}" >
+        <link rel="stylesheet" type="text/css"  href="{{ url_for('static',filename='assets/emoji.css')}}" >
+        <script src="{{ url_for('static',filename='assets/twemoji.min.js')}}"></script>
+        <script src="{{ url_for('static',filename='assets/emoji.js')}}"></script>
+    </head>
+<body>
+    <center><h1><img src = "https://cdn.freebiesupply.com/images/large/2x/amazon-logo-transparent.png" alt = "Amazon" width="210" height="70"></h1></center>
+    <ul>
+        <center><font color="white"><p action="/list" class="{ a1 }">ENTER YOUR 10 DIGIT ASIN BELOW</p></font></center>
+    </ul>
+    <div><form id="form_asin" form action="/action" method="POST" align="center">
+    <table class="none">
+        <tr>
+            <p><b><big><label>INPUT ASIN NUMBER</label></big></b></p>
+        </tr>
+        <tr>
+        <p><textarea name="name" id="name" rows="1" cols="30" placeholder="ASIN NUMBER" minlength="10" maxlength="10"></textarea></p>
+        &nbsp;
+
+        <p><button id="submit" type="submit"> Submit </button></p>
+        </tr>
+    </form>
+    </table>
+    </div>
+    <script>
+        var btn = document.getElementById("name");
+        btn.addEventListener('keyup',function(event){
+            event.preventDefault();
+            if (event.keyCode == 13) {
+            document.getElementById("submit").click();
+        }
+    });
+    </script>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <center>
+                {% for message in messages %}
+                <label type="label" class = "close"></label>
+                {{message}}
+               {% endfor %}
+            </center>
+        {% endif %}
+    {% endwith %}
+    <center><p>{{ f }} </p></center>
+</body>
+</html>
