@@ -3,7 +3,7 @@ from selenium import webdriver
 import re,time
 
 # database connections
-client = MongoClient('10.56.137.20',27017)
+client = MongoClient('10.56.133.30',27017)
 db = client['Manish']
 col = db['amazon']
 
@@ -43,7 +43,7 @@ def number(pc):
         print("Panic")
 
 def read():
-    for doc in col.find():
+    for doc in col.find({'pc':{"$in":["B07DJD1RTM"]}}):
         number(doc['pc'])
 
 if __name__ == '__main__':
