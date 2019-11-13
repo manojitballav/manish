@@ -7,6 +7,115 @@ client = MongoClient('10.56.133.14',27017)
 db = client['Manish']
 col = db['amazon']
 
+def five_star_scrap(pc,fiver):
+    pc = str(pc)
+    driver = webdriver.Chrome()
+    if(fiver < 10):
+        page = int(fiver)
+    elif(fiver>=10):
+        page = (fiver//10)+1
+    else:
+        print("Brains Fried")
+    for val in range(1,page+1):
+        val = str(val)
+        driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_getr_d_paging_btm_next_'+val+'?ie=UTF8&reviewerType=all_reviews&filterByStar=five_star&pageNumber='+val+'&sortBy=recent')
+        date = driver.find_elements_by_class_name('review-date')
+        review = driver.find_elements_by_class_name('review-text')
+        heading = driver.find_elements_by_class_name('review-title')
+        for zal,kal,hal in zip(date,review,heading):
+            print('Date: '+str(zal.text))
+            print('Heading: '+str(hal.text))
+            print('Rating: '+str(5))
+            print('Review: '+str(kal.text))
+    driver.quit()
+
+def four_star_scrap(pc,fourr):
+    pc = str(pc)
+    driver = webdriver.Chrome()
+    if(fourr < 10):
+        page = int(fourr)
+    elif(fourr>=10):
+        page = (fourr//10)+1
+    else:
+        print("Brains Fried")
+    for val in range(1,page+1):
+        val = str(val)
+        driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_getr_d_paging_btm_next_'+val+'?ie=UTF8&reviewerType=all_reviews&filterByStar=four_star&pageNumber='+val+'&sortBy=recent')
+        date = driver.find_elements_by_class_name('review-date')
+        review = driver.find_elements_by_class_name('review-text')
+        heading = driver.find_elements_by_class_name('review-title')
+        for zal,kal,hal in zip(date,review,heading):
+            print('Date: '+str(zal.text))
+            print('Heading: '+str(hal.text))
+            print('Rating: '+str(4))
+            print('Review: '+str(kal.text))
+    driver.quit()
+
+def three_star_scrap(pc,threer):
+    pc = str(pc)
+    driver = webdriver.Chrome()
+    if(threer < 10):
+        page = int(threer)
+    elif(threer>=10):
+        page = (threer//10)+1
+    else:
+        print("Brains Fried")
+    for val in range(1,page+1):
+        val = str(val)
+        driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_getr_d_paging_btm_next_'+val+'?ie=UTF8&reviewerType=all_reviews&filterByStar=three_star&pageNumber='+val+'&sortBy=recent')
+        date = driver.find_elements_by_class_name('review-date')
+        review = driver.find_elements_by_class_name('review-text')
+        heading = driver.find_elements_by_class_name('review-title')
+        for zal,kal,hal in zip(date,review,heading):
+            print('Date: '+str(zal.text))
+            print('Heading: '+str(hal.text))
+            print('Rating: '+str(3))
+            print('Review: '+str(kal.text))
+    driver.quit()
+
+def two_star_scrap(pc,twor):
+    pc = str(pc)
+    driver = webdriver.Chrome()
+    if(twor < 10):
+        page = int(twor)
+    elif(twor>=10):
+        page = (twor//10)+1
+    else:
+        print("Brains Fried")
+    for val in range(1,page+1):
+        val = str(val)
+        driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_getr_d_paging_btm_next_'+val+'?ie=UTF8&reviewerType=all_reviews&filterByStar=two_star&pageNumber='+val+'&sortBy=recent')
+        date = driver.find_elements_by_class_name('review-date')
+        review = driver.find_elements_by_class_name('review-text')
+        heading = driver.find_elements_by_class_name('review-title')
+        for zal,kal,hal in zip(date,review,heading):
+            print('Date: '+str(zal.text))
+            print('Heading: '+str(hal.text))
+            print('Rating: '+str(2))
+            print('Review: '+str(kal.text))
+    driver.quit()
+
+def one_star_scrap(pc,oner):
+    pc = str(pc)
+    driver = webdriver.Chrome()
+    if(oner < 10):
+        page = int(oner)
+    elif(oner>=10):
+        page = (oner//10)+1
+    else:
+        print("Brains Fried")
+    for val in range(1,page+1):
+        val = str(val)
+        driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_getr_d_paging_btm_next_'+val+'?ie=UTF8&reviewerType=all_reviews&filterByStar=one_star&pageNumber='+val+'&sortBy=recent')
+        date = driver.find_elements_by_class_name('review-date')
+        review = driver.find_elements_by_class_name('review-text')
+        heading = driver.find_elements_by_class_name('review-title')
+        for zal,kal,hal in zip(date,review,heading):
+            print('Date: '+str(zal.text))
+            print('Heading: '+str(hal.text))
+            print('Rating: '+str(1))
+            print('Review: '+str(kal.text))
+    driver.quit()
 
 def number(pc):
     driver = webdriver.Chrome()
@@ -29,7 +138,7 @@ def number(pc):
     oner = oner.replace('-','')
     tmp1 = re.findall(r'\d+',oner)
     res1 = list(map(int,tmp1))
-    oner = res1[1]
+    oner = int(res1[1])
 
     # getting the number of two_star reviews
     driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_arp_d_viewopt_sr?ie=UTF8&amp%3BshowViewpoints=1&filterByStar=two_star&pageNumber=1&sortBy=recent')
@@ -37,7 +146,7 @@ def number(pc):
     twor = twor.replace('-','')
     tmp2 = re.findall(r'\d+',twor)
     res2 = list(map(int,tmp2))
-    twor = res2[1]
+    twor = int(res2[1])
 
     # getting the number of three_star reviews
     driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_arp_d_viewopt_sr?ie=UTF8&amp%3BshowViewpoints=1&filterByStar=three_star&pageNumber=1&sortBy=recent')
@@ -45,7 +154,7 @@ def number(pc):
     threer = threer.replace('-','')
     tmp3 = re.findall(r'\d+',threer)
     res3 = list(map(int,tmp3))
-    threer = res3[1]
+    threer = int(res3[1])
 
     # getting the number of four_star reviews
     driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_arp_d_viewopt_sr?ie=UTF8&amp%3BshowViewpoints=1&filterByStar=four_star&pageNumber=1&sortBy=recent')
@@ -53,7 +162,7 @@ def number(pc):
     fourr = fourr.replace('-','')
     tmp4 = re.findall(r'\d+',fourr)
     res4 = list(map(int,tmp4))
-    fourr = res4[1]
+    fourr = int(res4[1])
 
     # getting the number of five_star reviews
     driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_arp_d_viewopt_sr?ie=UTF8&amp%3BshowViewpoints=1&filterByStar=five_star&pageNumber=1&sortBy=recent')
@@ -61,7 +170,9 @@ def number(pc):
     fiver = fiver.replace('-','')
     tmp5 = re.findall(r'\d+',fiver)
     res5 = list(map(int,tmp5))
-    fiver = res5[1]
+    fiver = int(res5[1])
+
+    driver.quit()
 
     # printing the breakup of reviews along ratings
     print('1 Star: '+str(oner))
@@ -69,13 +180,15 @@ def number(pc):
     print('3 Star: '+str(threer))
     print('4 Star: '+str(fourr))
     print('5 Star: '+str(fiver))
-
-    # closing the drivers
-    driver.quit()
+    one_star_scrap(pc,oner)
+    two_star_scrap(pc,twor)
+    three_star_scrap(pc,threer)
+    four_star_scrap(pc,fourr)
+    five_star_scrap(pc,fiver)
 
 def read():
-    # for doc in col.find({'pc':{"$in":["B07X1KT6LD"]}}):
-    for doc in col.find({}):
+    for doc in col.find({'pc':{"$in":["B07X1KT6LD"]}}):
+    # for doc in col.find({}):
         number(doc['pc'])
 
 if __name__ == '__main__':
