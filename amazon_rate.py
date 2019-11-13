@@ -8,6 +8,8 @@ db = client['Manish']
 col = db['amazon']
 
 def five_star_scrap(pc,fiver):
+    collection = db[pc]
+    rating = 5
     pc = str(pc)
     driver = webdriver.Chrome()
     if(fiver < 10):
@@ -23,13 +25,16 @@ def five_star_scrap(pc,fiver):
         review = driver.find_elements_by_class_name('review-text')
         heading = driver.find_elements_by_class_name('review-title')
         for zal,kal,hal in zip(date,review,heading):
-            print('Date: '+str(zal.text))
-            print('Heading: '+str(hal.text))
-            print('Rating: '+str(5))
-            print('Review: '+str(kal.text))
+            # print('Date: '+str(zal.text))
+            # print('Heading: '+str(hal.text))
+            # print('Rating: '+str(5))
+            # print('Review: '+str(kal.text))
+            collection.update_one({"review": kal.text},{'$set':{"review":kal.text,"date":zal.text,"heading":hal.text,"rating":rating}},upsert=True)
     driver.quit()
 
 def four_star_scrap(pc,fourr):
+    collection = db[pc]
+    rating = 4
     pc = str(pc)
     driver = webdriver.Chrome()
     if(fourr < 10):
@@ -45,13 +50,16 @@ def four_star_scrap(pc,fourr):
         review = driver.find_elements_by_class_name('review-text')
         heading = driver.find_elements_by_class_name('review-title')
         for zal,kal,hal in zip(date,review,heading):
-            print('Date: '+str(zal.text))
-            print('Heading: '+str(hal.text))
-            print('Rating: '+str(4))
-            print('Review: '+str(kal.text))
+            # print('Date: '+str(zal.text))
+            # print('Heading: '+str(hal.text))
+            # print('Rating: '+str(4))
+            # print('Review: '+str(kal.text))
+            collection.update_one({"review": kal.text},{'$set':{"review":kal.text,"date":zal.text,"heading":hal.text,"rating":rating}},upsert=True)
     driver.quit()
 
 def three_star_scrap(pc,threer):
+    collection = db[pc]
+    rating = 3
     pc = str(pc)
     driver = webdriver.Chrome()
     if(threer < 10):
@@ -67,13 +75,16 @@ def three_star_scrap(pc,threer):
         review = driver.find_elements_by_class_name('review-text')
         heading = driver.find_elements_by_class_name('review-title')
         for zal,kal,hal in zip(date,review,heading):
-            print('Date: '+str(zal.text))
-            print('Heading: '+str(hal.text))
-            print('Rating: '+str(3))
-            print('Review: '+str(kal.text))
+            # print('Date: '+str(zal.text))
+            # print('Heading: '+str(hal.text))
+            # print('Rating: '+str(3))
+            # print('Review: '+str(kal.text))
+            collection.update_one({"review": kal.text},{'$set':{"review":kal.text,"date":zal.text,"heading":hal.text,"rating":rating}},upsert=True)
     driver.quit()
 
 def two_star_scrap(pc,twor):
+    collection = db[pc]
+    rating = 2
     pc = str(pc)
     driver = webdriver.Chrome()
     if(twor < 10):
@@ -89,13 +100,16 @@ def two_star_scrap(pc,twor):
         review = driver.find_elements_by_class_name('review-text')
         heading = driver.find_elements_by_class_name('review-title')
         for zal,kal,hal in zip(date,review,heading):
-            print('Date: '+str(zal.text))
-            print('Heading: '+str(hal.text))
-            print('Rating: '+str(2))
-            print('Review: '+str(kal.text))
+            # print('Date: '+str(zal.text))
+            # print('Heading: '+str(hal.text))
+            # print('Rating: '+str(2))
+            # print('Review: '+str(kal.text))
+            collection.update_one({"review": kal.text},{'$set':{"review":kal.text,"date":zal.text,"heading":hal.text,"rating":rating}},upsert=True)
     driver.quit()
 
 def one_star_scrap(pc,oner):
+    collection = db[pc]
+    rating = 1
     pc = str(pc)
     driver = webdriver.Chrome()
     if(oner < 10):
@@ -111,10 +125,11 @@ def one_star_scrap(pc,oner):
         review = driver.find_elements_by_class_name('review-text')
         heading = driver.find_elements_by_class_name('review-title')
         for zal,kal,hal in zip(date,review,heading):
-            print('Date: '+str(zal.text))
-            print('Heading: '+str(hal.text))
-            print('Rating: '+str(1))
-            print('Review: '+str(kal.text))
+            # print('Date: '+str(zal.text))
+            # print('Heading: '+str(hal.text))
+            # print('Rating: '+str(1))
+            # print('Review: '+str(kal.text))
+            collection.update_one({"review": kal.text},{'$set':{"review":kal.text,"date":zal.text,"heading":hal.text,"rating":rating}},upsert=True)
     driver.quit()
 
 def number(pc):
@@ -187,39 +202,9 @@ def number(pc):
     five_star_scrap(pc,fiver)
 
 def read():
-    for doc in col.find({'pc':{"$in":["B07X1KT6LD"]}}):
+    for doc in col.find({'pc':{"$in":["B07DJ8K2KT"]}}):
     # for doc in col.find({}):
         number(doc['pc'])
 
 if __name__ == '__main__':
     read()
-
-# Xpath repo
-# Fetching the star rating
-# /html/body/div[1]/div[3]/div[1]/div[2]/div/div[1]/div[4]/div[3]/div[1]/div/div/div[2]/a[1]/i/span
-# /html/body/div[1]/div[3]/div[1]/div[2]/div/div[1]/div[4]/div[3]/div['+tal+']/div/div/div[2]/a[1]/i/span
-
-# Fetching reviewer name
-# /html/body/div[1]/div[3]/div[1]/div[2]/div/div[1]/div[4]/div[3]/div[1]/div/div/div[1]/a/div[2]/span
-# /html/body/div[1]/div[3]/div[1]/div[2]/div/div[1]/div[4]/div[3]/div[10]/div/div/div[1]/a/div[2]/span
-
-# Fetching review title
-# /html/body/div[1]/div[3]/div[1]/div[2]/div/div[1]/div[4]/div[3]/div[1]/div/div/div[2]/a[2]/span
-# /html/body/div[1]/div[3]/div[1]/div[2]/div/div[1]/div[4]/div[3]/div[10]/div/div/div[2]/a[2]/span
-
-# Fetching review body
-# /html/body/div[1]/div[3]/div[1]/div[2]/div/div[1]/div[4]/div[3]/div[1]/div/div/div[4]/span/span
-# /html/body/div[1]/div[3]/div[1]/div[2]/div/div[1]/div[4]/div[3]/div[10]/div/div/div[4]/span/span
-
-# Fetching review date
-# /html/body/div[1]/div[3]/div[1]/div[2]/div/div[1]/div[4]/div[3]/div[1]/div/div/span
-# /html/body/div[1]/div[3]/div[1]/div[2]/div/div[1]/div[4]/div[3]/div[10]/div/div/span
-
-# Number of reviews
-# https://www.amazon.in/product-reviews/B07X2KLKRZ/ref=acr_dpproductdetail_text?ie=UTF8&amp;showViewpoints=1
-# /html/body/div[1]/div[3]/div[1]/div[2]/div/div[1]/div[4]/div[3]/div[11]/div
-
-
-
-# one star
-# https://www.amazon.in/product-reviews/B07X2KLKRZ/ref=cm_cr_getr_d_paging_btm_next_2?ie=UTF8&amp%3BshowViewpoints=1&sortBy=recent&pageNumber=2&filterByStar=one_star
