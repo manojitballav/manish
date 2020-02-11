@@ -1,18 +1,20 @@
+import re
+import time
+
 from pymongo import MongoClient
 from selenium import webdriver
-import re,time
 from selenium.common.exceptions import NoSuchElementException
 
 # database connections
-client = MongoClient('10.56.133.14',27017)
-db = client['Projector']
+client = MongoClient('10.56.133.247',27017)
+db = client['MiTV']
 col = db['amazon']
 
 def five_star_scrap(pc,fiver):
     collection = db[pc]
     rating = 5
     pc = str(pc)
-    driver = webdriver.Chrome()
+    driver = webdriver.Firefox()
     if(fiver < 10):
         page = int(fiver)
     elif(fiver>=10):
@@ -37,7 +39,7 @@ def four_star_scrap(pc,fourr):
     collection = db[pc]
     rating = 4
     pc = str(pc)
-    driver = webdriver.Chrome()
+    driver = webdriver.Firefox()
     if(fourr < 10):
         page = int(fourr)
     elif(fourr>=10):
@@ -62,7 +64,7 @@ def three_star_scrap(pc,threer):
     collection = db[pc]
     rating = 3
     pc = str(pc)
-    driver = webdriver.Chrome()
+    driver = webdriver.Firefox()
     if(threer < 10):
         page = int(threer)
     elif(threer>=10):
@@ -87,7 +89,7 @@ def two_star_scrap(pc,twor):
     collection = db[pc]
     rating = 2
     pc = str(pc)
-    driver = webdriver.Chrome()
+    driver = webdriver.Firefox()
     if(twor < 10):
         page = int(twor)
     elif(twor>=10):
@@ -112,7 +114,7 @@ def one_star_scrap(pc,oner):
     collection = db[pc]
     rating = 1
     pc = str(pc)
-    driver = webdriver.Chrome()
+    driver = webdriver.Firefox()
     if(oner < 10):
         page = int(oner)
     elif(oner>=10):
@@ -134,19 +136,24 @@ def one_star_scrap(pc,oner):
     driver.quit()
 
 def number(pc):
-    driver = webdriver.Chrome()
+    driver = webdriver.Firefox()
     # get total number of reviews
-    driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=acr_dpproductdetail_text?ie=UTF8&amp;showViewpoints=1')
-    # number of reviews
-    nr = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[2]/div/div[1]/div[4]/div[3]/div[11]/div').text
-    nr = nr.replace(',','')
-    # print(pc +': '+nr)
-    tmp = re.findall(r'\d+',nr)
-    res = list(map(int,tmp))
-    review = res[0]
-    rating = res[1]
-    print(str(pc)+': Reviews: '+str(review)+' Ratings: '+str(rating))
+    # driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=acr_dpproductdetail_text?ie=UTF8&amp;showViewpoints=1')
+    # # number of reviews
+    # nr = driver.find_element_by_xpath('/html/body/div[2]/div[1]/div[4]/div[28]/div/div/div/div[2]/div[2]/div[1]/div[2]/div/div/table/tbody/tr[2]/td[2]/span/span[3]/a').text
+    # nr = nr.replace(',','')
+    # # print(pc +': '+nr)
+    # tmp = re.findall(r'\d+',nr)
+    # res = list(map(int,tmp))
+    # review = res[0]
+    # rating = res[1]
+    # print(str(pc)+': Reviews: '+str(review)+' Ratings: '+str(rating))
 
+    # getting the number of reviews from the product detail page
+    driver.get('https://www.amazon.in/dp/'+str(pc)+'')
+    rating = driver.find_element_by_xpath('/html/body/div[2]/div[1]/div[4]/div[28]/div/div/div/div[2]/div[2]/div[1]/div[2]/div/div/table/tbody/tr[2]/td[2]/span/span[3]/a').text
+    print(rating)
+    exit
     # getting number of one_star reviews
     try:
         driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_arp_d_viewopt_sr?ie=UTF8&amp%3BshowViewpoints=1&filterByStar=one_star&pageNumber=1&sortBy=recent')
