@@ -7,9 +7,10 @@ from selenium.common.exceptions import NoSuchElementException
 
 # database connections
 client = MongoClient('10.56.133.247',27017)
-db = client['MiTV']
-col = db['amazon']
+db = client['Manish']
+col = db['asin']
 
+# for scraping reviews with 5 star rating
 def five_star_scrap(pc,fiver):
     collection = db[pc]
     rating = 5
@@ -21,6 +22,7 @@ def five_star_scrap(pc,fiver):
         page = (fiver//10)+1
     else:
         print("Brains Fried")
+
     for val in range(1,page+1):
         val = str(val)
         driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_getr_d_paging_btm_next_'+val+'?ie=UTF8&reviewerType=all_reviews&filterByStar=five_star&pageNumber='+val+'&sortBy=recent')
@@ -34,6 +36,8 @@ def five_star_scrap(pc,fiver):
             # print('Review: '+str(kal.text))
             collection.update_one({"review": kal.text},{'$set':{"review":kal.text,"date":zal.text,"heading":hal.text,"rating":rating}},upsert=True)
     driver.quit()
+
+# for scraping reviews with 4 star rating
 
 def four_star_scrap(pc,fourr):
     collection = db[pc]
@@ -60,6 +64,7 @@ def four_star_scrap(pc,fourr):
             collection.update_one({"review": kal.text},{'$set':{"review":kal.text,"date":zal.text,"heading":hal.text,"rating":rating}},upsert=True)
     driver.quit()
 
+# for scraping reviews with 3 star rating
 def three_star_scrap(pc,threer):
     collection = db[pc]
     rating = 3
@@ -85,6 +90,7 @@ def three_star_scrap(pc,threer):
             collection.update_one({"review": kal.text},{'$set':{"review":kal.text,"date":zal.text,"heading":hal.text,"rating":rating}},upsert=True)
     driver.quit()
 
+# for reviews with 2 star rating
 def two_star_scrap(pc,twor):
     collection = db[pc]
     rating = 2
@@ -110,6 +116,7 @@ def two_star_scrap(pc,twor):
             collection.update_one({"review": kal.text},{'$set':{"review":kal.text,"date":zal.text,"heading":hal.text,"rating":rating}},upsert=True)
     driver.quit()
 
+# for reveiws with one star rating
 def one_star_scrap(pc,oner):
     collection = db[pc]
     rating = 1
@@ -135,6 +142,8 @@ def one_star_scrap(pc,oner):
             collection.update_one({"review": kal.text},{'$set':{"review":kal.text,"date":zal.text,"heading":hal.text,"rating":rating}},upsert=True)
     driver.quit()
 
+
+# getting the initial number of reviews sorted
 def number(pc):
     driver = webdriver.Firefox()
     # get total number of reviews
@@ -150,10 +159,10 @@ def number(pc):
     # print(str(pc)+': Reviews: '+str(review)+' Ratings: '+str(rating))
 
     # getting the number of reviews from the product detail page
-    driver.get('https://www.amazon.in/dp/'+str(pc)+'')
-    rating = driver.find_element_by_xpath('/html/body/div[2]/div[1]/div[4]/div[28]/div/div/div/div[2]/div[2]/div[1]/div[2]/div/div/table/tbody/tr[2]/td[2]/span/span[3]/a').text
-    print(rating)
-    exit
+    # driver.get('https://www.amazon.in/dp/'+str(pc)+'')
+    # rating = driver.find_element_by_xpath('/html/body/div[2]/div[1]/div[4]/div[28]/div/div/div/div[2]/div[2]/div[1]/div[2]/div/div/table/tbody/tr[2]/td[2]/span/span[3]/a').text
+    # print(rating)
+    # exit
     # getting number of one_star reviews
     try:
         driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_arp_d_viewopt_sr?ie=UTF8&amp%3BshowViewpoints=1&filterByStar=one_star&pageNumber=1&sortBy=recent')
@@ -218,16 +227,20 @@ def number(pc):
     driver.quit()
 
     # printing the breakup of reviews along ratings
-    # print('1 Star: '+str(oner))
-    # print('2 Star: '+str(twor))
-    # print('3 Star: '+str(threer))
-    # print('4 Star: '+str(fourr))
-    # print('5 Star: '+str(fiver))
+    print('1 Star: '+str(oner))
+    print('2 Star: '+str(twor))
+    print('3 Star: '+str(threer))
+    print('4 Star: '+str(fourr))
+    print('5 Star: '+str(fiver))
 
 def read():
-    # for doc in col.find({'pc':{"$in":["B07DJ8K2KT"]}}):
-    for doc in col.find({}):
+    for doc in col.find({'pc':{"$in":["B07HGBMHTR"]}}):
+    # for doc in col.find({}):
         number(doc['pc'])
 
 if __name__ == '__main__':
     read()
+
+    # /html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div[2]/div/div/div[3]/a
+    # /html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div[3]/div/div/div[3]/a
+    # /html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div[5]/div/div/div[3]/a
