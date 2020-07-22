@@ -26,15 +26,13 @@ def five_star_scrap(pc,fiver):
     for val in range(1,page+1):
         val = str(val)
         driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_getr_d_paging_btm_next_'+val+'?ie=UTF8&reviewerType=all_reviews&filterByStar=five_star&pageNumber='+val+'&sortBy=recent')
-        date = driver.find_elements_by_class_name('review-date')
-        review = driver.find_elements_by_class_name('review-text')
-        heading = driver.find_elements_by_class_name('review-title')
-        for zal,kal,hal in zip(date,review,heading):
-            # print('Date: '+str(zal.text))
-            # print('Heading: '+str(hal.text))
-            # print('Rating: '+str(5))
-            # print('Review: '+str(kal.text))
-            collection.update_one({"review": kal.text},{'$set':{"review":kal.text,"date":zal.text,"heading":hal.text,"rating":rating}},upsert=True)
+        # new method:
+        for mal in range(1,11):
+            heading = driver.find_element_by_xpath('html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div['+str(mal)+']/div/div/div[2]/a[2]/span')
+            date = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div['+str(mal)+']/div/div/span')
+            date = date.replace('Reviewed in India on ','')
+            review = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div['+str(mal)+']/div/div/div[4]/span/span')
+            collection.update_one({"review": review.text},{'$set':{"review":review.text,"date":date.text,"heading":heading.text,"rating":rating}},upsert=True)
     driver.quit()
 
 # for scraping reviews with 4 star rating
@@ -53,15 +51,12 @@ def four_star_scrap(pc,fourr):
     for val in range(1,page+1):
         val = str(val)
         driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_getr_d_paging_btm_next_'+val+'?ie=UTF8&reviewerType=all_reviews&filterByStar=four_star&pageNumber='+val+'&sortBy=recent')
-        date = driver.find_elements_by_class_name('review-date')
-        review = driver.find_elements_by_class_name('review-text')
-        heading = driver.find_elements_by_class_name('review-title')
-        for zal,kal,hal in zip(date,review,heading):
-            # print('Date: '+str(zal.text))
-            # print('Heading: '+str(hal.text))
-            # print('Rating: '+str(4))
-            # print('Review: '+str(kal.text))
-            collection.update_one({"review": kal.text},{'$set':{"review":kal.text,"date":zal.text,"heading":hal.text,"rating":rating}},upsert=True)
+        for mal in range(1,11):
+            heading = driver.find_element_by_xpath('html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div['+str(mal)+']/div/div/div[2]/a[2]/span')
+            date = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div['+str(mal)+']/div/div/span')
+            date = date.replace('Reviewed in India on ','')
+            review = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div['+str(mal)+']/div/div/div[4]/span/span')
+            collection.update_one({"review": review.text},{'$set':{"review":review.text,"date":date.text,"heading":heading.text,"rating":rating}},upsert=True)
     driver.quit()
 
 # for scraping reviews with 3 star rating
@@ -79,15 +74,12 @@ def three_star_scrap(pc,threer):
     for val in range(1,page+1):
         val = str(val)
         driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_getr_d_paging_btm_next_'+val+'?ie=UTF8&reviewerType=all_reviews&filterByStar=three_star&pageNumber='+val+'&sortBy=recent')
-        date = driver.find_elements_by_class_name('review-date')
-        review = driver.find_elements_by_class_name('review-text')
-        heading = driver.find_elements_by_class_name('review-title')
-        for zal,kal,hal in zip(date,review,heading):
-            # print('Date: '+str(zal.text))
-            # print('Heading: '+str(hal.text))
-            # print('Rating: '+str(3))
-            # print('Review: '+str(kal.text))
-            collection.update_one({"review": kal.text},{'$set':{"review":kal.text,"date":zal.text,"heading":hal.text,"rating":rating}},upsert=True)
+        for mal in range(1,11):
+            heading = driver.find_element_by_xpath('html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div['+str(mal)+']/div/div/div[2]/a[2]/span')
+            date = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div['+str(mal)+']/div/div/span')
+            date = date.replace('Reviewed in India on ','')
+            review = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div['+str(mal)+']/div/div/div[4]/span/span')
+            collection.update_one({"review": review.text},{'$set':{"review":review.text,"date":date.text,"heading":heading.text,"rating":rating}},upsert=True)
     driver.quit()
 
 # for reviews with 2 star rating
@@ -105,15 +97,12 @@ def two_star_scrap(pc,twor):
     for val in range(1,page+1):
         val = str(val)
         driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_getr_d_paging_btm_next_'+val+'?ie=UTF8&reviewerType=all_reviews&filterByStar=two_star&pageNumber='+val+'&sortBy=recent')
-        date = driver.find_elements_by_class_name('review-date')
-        review = driver.find_elements_by_class_name('review-text')
-        heading = driver.find_elements_by_class_name('review-title')
-        for zal,kal,hal in zip(date,review,heading):
-            # print('Date: '+str(zal.text))
-            # print('Heading: '+str(hal.text))
-            # print('Rating: '+str(2))
-            # print('Review: '+str(kal.text))
-            collection.update_one({"review": kal.text},{'$set':{"review":kal.text,"date":zal.text,"heading":hal.text,"rating":rating}},upsert=True)
+        for mal in range(1,11):
+            heading = driver.find_element_by_xpath('html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div['+str(mal)+']/div/div/div[2]/a[2]/span')
+            date = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div['+str(mal)+']/div/div/span')
+            date = date.replace('Reviewed in India on ','')
+            review = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div['+str(mal)+']/div/div/div[4]/span/span')
+            collection.update_one({"review": review.text},{'$set':{"review":review.text,"date":date.text,"heading":heading.text,"rating":rating}},upsert=True)
     driver.quit()
 
 # for reveiws with one star rating
@@ -131,38 +120,18 @@ def one_star_scrap(pc,oner):
     for val in range(1,page+1):
         val = str(val)
         driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_getr_d_paging_btm_next_'+val+'?ie=UTF8&reviewerType=all_reviews&filterByStar=one_star&pageNumber='+val+'&sortBy=recent')
-        date = driver.find_elements_by_class_name('review-date')
-        review = driver.find_elements_by_class_name('review-text')
-        heading = driver.find_elements_by_class_name('review-title')
-        for zal,kal,hal in zip(date,review,heading):
-            # print('Date: '+str(zal.text))
-            # print('Heading: '+str(hal.text))
-            # print('Rating: '+str(1))
-            # print('Review: '+str(kal.text))
-            collection.update_one({"review": kal.text},{'$set':{"review":kal.text,"date":zal.text,"heading":hal.text,"rating":rating}},upsert=True)
+        for mal in range(1,11):
+            heading = driver.find_element_by_xpath('html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div['+str(mal)+']/div/div/div[2]/a[2]/span')
+            date = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div['+str(mal)+']/div/div/span')
+            date = date.replace('Reviewed in India on ','')
+            review = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div['+str(mal)+']/div/div/div[4]/span/span')
+            collection.update_one({"review": review.text},{'$set':{"review":review.text,"date":date.text,"heading":heading.text,"rating":rating}},upsert=True)
     driver.quit()
 
 
 # getting the initial number of reviews sorted
 def number(pc):
     driver = webdriver.Firefox()
-    # get total number of reviews
-    # driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=acr_dpproductdetail_text?ie=UTF8&amp;showViewpoints=1')
-    # # number of reviews
-    # nr = driver.find_element_by_xpath('/html/body/div[2]/div[1]/div[4]/div[28]/div/div/div/div[2]/div[2]/div[1]/div[2]/div/div/table/tbody/tr[2]/td[2]/span/span[3]/a').text
-    # nr = nr.replace(',','')
-    # # print(pc +': '+nr)
-    # tmp = re.findall(r'\d+',nr)
-    # res = list(map(int,tmp))
-    # review = res[0]
-    # rating = res[1]
-    # print(str(pc)+': Reviews: '+str(review)+' Ratings: '+str(rating))
-
-    # getting the number of reviews from the product detail page
-    # driver.get('https://www.amazon.in/dp/'+str(pc)+'')
-    # rating = driver.find_element_by_xpath('/html/body/div[2]/div[1]/div[4]/div[28]/div/div/div/div[2]/div[2]/div[1]/div[2]/div/div/table/tbody/tr[2]/td[2]/span/span[3]/a').text
-    # print(rating)
-    # exit
     # getting number of one_star reviews
     try:
         driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_arp_d_viewopt_sr?ie=UTF8&amp%3BshowViewpoints=1&filterByStar=one_star&pageNumber=1&sortBy=recent')
@@ -234,13 +203,9 @@ def number(pc):
     print('5 Star: '+str(fiver))
 
 def read():
-    for doc in col.find({'pc':{"$in":["B07HGBMHTR"]}}):
+    for doc in col.find({'pc':{"$in":["B077PWBC78"]}}):
     # for doc in col.find({}):
         number(doc['pc'])
 
 if __name__ == '__main__':
     read()
-
-    # /html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div[2]/div/div/div[3]/a
-    # /html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div[3]/div/div/div[3]/a
-    # /html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div[5]/div/div/div[3]/a
