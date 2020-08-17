@@ -7,8 +7,8 @@ from selenium.common.exceptions import NoSuchElementException
 
 # database connections
 client = MongoClient('10.56.133.247',27017)
-db = client['Manish']
-col = db['asin']
+db = client['MiTV']
+col = db['amazon']
 
 # for scraping reviews with 5 star rating
 def five_star_scrap(pc,fiver):
@@ -221,7 +221,7 @@ def number(pc):
         pass
     
 def read():
-    for doc in col.find({'pc':{"$in":["B08695YMYC","B08695YRKV","B086984LHS","B086977TR6","B08696ZMPF"]}}):
+    for doc in col.find({'pc':{"$in":["B084872DQY"]}}):
     # for doc in col.find({}):
         number(doc['pc'])
 
