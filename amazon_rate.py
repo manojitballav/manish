@@ -6,7 +6,7 @@ from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 
 # database connections
-client = MongoClient()
+client = MongoClient('10.56.133.247',27017)
 db = client['Manish']
 col = db['asin']
 
@@ -15,7 +15,7 @@ def five_star_scrap(pc,fiver):
     collection = db[pc]
     rating = 5
     pc = str(pc)
-    driver = webdriver.Firefox()
+    driver = webdriver.Chrome()
     if(fiver < 10):
         page = int(fiver)
     elif(fiver>=10):
@@ -41,7 +41,7 @@ def four_star_scrap(pc,fourr):
     collection = db[pc]
     rating = 4
     pc = str(pc)
-    driver = webdriver.Firefox()
+    driver = webdriver.Chrome()
     if(fourr < 10):
         page = int(fourr)
     elif(fourr>=10):
@@ -64,7 +64,7 @@ def three_star_scrap(pc,threer):
     collection = db[pc]
     rating = 3
     pc = str(pc)
-    driver = webdriver.Firefox()
+    driver = webdriver.Chrome()
     if(threer < 10):
         page = int(threer)
     elif(threer>=10):
@@ -87,7 +87,7 @@ def two_star_scrap(pc,twor):
     collection = db[pc]
     rating = 2
     pc = str(pc)
-    driver = webdriver.Firefox()
+    driver = webdriver.Chrome()
     if(twor < 10):
         page = int(twor)
     elif(twor>=10):
@@ -110,7 +110,7 @@ def one_star_scrap(pc,oner):
     collection = db[pc]
     rating = 1
     pc = str(pc)
-    driver = webdriver.Firefox()
+    driver = webdriver.Chrome()
     if(oner < 10):
         page = int(oner)
     elif(oner>=10):
@@ -131,7 +131,7 @@ def one_star_scrap(pc,oner):
 
 # getting the initial number of reviews sorted
 def number(pc):
-    driver = webdriver.Firefox()
+    driver = webdriver.Chrome()
     # getting number of one_star reviews
     try:
         driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_arp_d_viewopt_sr?ie=UTF8&amp%3BshowViewpoints=1&filterByStar=one_star&pageNumber=1&sortBy=recent')
@@ -194,14 +194,34 @@ def number(pc):
     driver.quit()
 
     # printing the breakup of reviews along ratings
-    print('1 Star: '+str(oner))
-    print('2 Star: '+str(twor))
-    print('3 Star: '+str(threer))
-    print('4 Star: '+str(fourr))
-    print('5 Star: '+str(fiver))
-
+    try:
+        print('1 Star: '+str(oner))
+    except Exception as e:
+        print(e)
+        pass
+    try:
+        print('2 Star: '+str(twor))
+    except Exception as e:
+        print(e)
+        pass
+    try:
+        print('3 Star: '+str(threer))
+    except Exception as e:
+        print(e)
+        pass
+    try:
+        print('4 Star: '+str(fourr))
+    except Exception as e:
+        print(e)
+        pass
+    try:
+        print('5 Star: '+str(fiver))
+    except Exception as e:
+        print(e)
+        pass
+    
 def read():
-    for doc in col.find({'pc':{"$in":["B08695YMYC,B08695YRKV,B086984LHS,B086977TR6,B08696ZMPF"]}}):
+    for doc in col.find({'pc':{"$in":["B08695YMYC","B08695YRKV","B086984LHS","B086977TR6","B08696ZMPF"]}}):
     # for doc in col.find({}):
         number(doc['pc'])
 
