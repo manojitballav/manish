@@ -6,7 +6,7 @@ from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 
 # database connections
-client = MongoClient('10.56.133.247',27017)
+client = MongoClient()
 db = client['Manish']
 col = db['asin']
 
@@ -180,7 +180,6 @@ def number(pc):
         four_star_scrap(pc,fourr)
     except NoSuchElementException:
         pass
-
     # getting the number of five_star reviews
     try:
         driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_arp_d_viewopt_sr?ie=UTF8&amp%3BshowViewpoints=1&filterByStar=five_star&pageNumber=1&sortBy=recent')
@@ -192,7 +191,6 @@ def number(pc):
         five_star_scrap(pc,fiver)
     except NoSuchElementException:
         pass
-
     driver.quit()
 
     # printing the breakup of reviews along ratings
@@ -203,7 +201,7 @@ def number(pc):
     print('5 Star: '+str(fiver))
 
 def read():
-    for doc in col.find({'pc':{"$in":["B077PWBC78"]}}):
+    for doc in col.find({'pc':{"$in":["B08695YMYC,B08695YRKV,B086984LHS,B086977TR6,B08696ZMPF"]}}):
     # for doc in col.find({}):
         number(doc['pc'])
 
