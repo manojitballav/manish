@@ -15,7 +15,7 @@ def five_star_scrap(pc,fiver):
     collection = db[pc]
     rating = 5
     pc = str(pc)
-    driver = webdriver.Chrome()
+    driver = webdriver.Firefox()
     if(fiver < 10):
         page = int(fiver)
     elif(fiver>=10):
@@ -41,7 +41,7 @@ def four_star_scrap(pc,fourr):
     collection = db[pc]
     rating = 4
     pc = str(pc)
-    driver = webdriver.Chrome()
+    driver = webdriver.Firefox()
     if(fourr < 10):
         page = int(fourr)
     elif(fourr>=10):
@@ -64,7 +64,7 @@ def three_star_scrap(pc,threer):
     collection = db[pc]
     rating = 3
     pc = str(pc)
-    driver = webdriver.Chrome()
+    driver = webdriver.Firefox()
     if(threer < 10):
         page = int(threer)
     elif(threer>=10):
@@ -87,7 +87,7 @@ def two_star_scrap(pc,twor):
     collection = db[pc]
     rating = 2
     pc = str(pc)
-    driver = webdriver.Chrome()
+    driver = webdriver.Firefox()
     if(twor < 10):
         page = int(twor)
     elif(twor>=10):
@@ -110,7 +110,7 @@ def one_star_scrap(pc,oner):
     collection = db[pc]
     rating = 1
     pc = str(pc)
-    driver = webdriver.Chrome()
+    driver = webdriver.Firefox()
     if(oner < 10):
         page = int(oner)
     elif(oner>=10):
@@ -131,7 +131,7 @@ def one_star_scrap(pc,oner):
 
 # getting the initial number of reviews sorted
 def number(pc):
-    driver = webdriver.Chrome()
+    driver = webdriver.Firefox()
     # getting number of one_star reviews
     try:
         driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_arp_d_viewopt_sr?ie=UTF8&amp%3BshowViewpoints=1&filterByStar=one_star&pageNumber=1&sortBy=recent')
