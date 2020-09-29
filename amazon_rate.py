@@ -11,7 +11,7 @@ db = client['Manish']
 col = db['asin']
 
 # for scraping reviews with 5 star rating
-def five_star_scrap(pc,fiver):
+def five_star_scrap(pc,fiver,ram,rom,color):
     collection = db[pc]
     rating = 5
     pc = str(pc)
@@ -32,12 +32,12 @@ def five_star_scrap(pc,fiver):
             date = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/span').text
             date = date.replace('Reviewed in India on ','')
             review = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/div[4]/span/span')
-            collection.update_one({"review": review.text},{'$set':{"review":review.text,"date":date,"heading":heading.text,"rating":rating}},upsert=True)
+            collection.update_one({"review": review.text},{'$set':{"review":review.text,"date":date,"heading":heading.text,"rating":rating,"ram":ram,"rom":rom,"color":color}},upsert=True)
     driver.quit()
 
 # for scraping reviews with 4 star rating
 
-def four_star_scrap(pc,fourr):
+def four_star_scrap(pc,fourr,ram,rom,color):
     collection = db[pc]
     rating = 4
     pc = str(pc)
@@ -56,11 +56,11 @@ def four_star_scrap(pc,fourr):
             date = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/span').text
             date = date.replace('Reviewed in India on ','')
             review = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/div[4]/span/span')
-            collection.update_one({"review": review.text},{'$set':{"review":review.text,"date":date,"heading":heading.text,"rating":rating}},upsert=True)
+            collection.update_one({"review": review.text},{'$set':{"review":review.text,"date":date,"heading":heading.text,"rating":rating,"ram":ram,"rom":rom,"color":color}},upsert=True)
     driver.quit()
 
 # for scraping reviews with 3 star rating
-def three_star_scrap(pc,threer):
+def three_star_scrap(pc,threer,ram,rom,color):
     collection = db[pc]
     rating = 3
     pc = str(pc)
@@ -79,11 +79,11 @@ def three_star_scrap(pc,threer):
             date = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/span').text
             date = date.replace('Reviewed in India on ','')
             review = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/div[4]/span/span')
-            collection.update_one({"review": review.text},{'$set':{"review":review.text,"date":date,"heading":heading.text,"rating":rating}},upsert=True)
+            collection.update_one({"review": review.text},{'$set':{"review":review.text,"date":date,"heading":heading.text,"rating":rating,"ram":ram,"rom":rom,"color":color}},upsert=True)
     driver.quit()
 
 # for reviews with 2 star rating
-def two_star_scrap(pc,twor):
+def two_star_scrap(pc,twor,ram,rom,color):
     collection = db[pc]
     rating = 2
     pc = str(pc)
@@ -102,11 +102,11 @@ def two_star_scrap(pc,twor):
             date = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/span').text
             date = date.replace('Reviewed in India on ','')
             review = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/div[4]/span/span')
-            collection.update_one({"review": review.text},{'$set':{"review":review.text,"date":date,"heading":heading.text,"rating":rating}},upsert=True)
+            collection.update_one({"review": review.text},{'$set':{"review":review.text,"date":date,"heading":heading.text,"rating":rating,"ram":ram,"rom":rom,"color":color}},upsert=True)
     driver.quit()
 
 # for reveiws with one star rating
-def one_star_scrap(pc,oner):
+def one_star_scrap(pc,oner,ram,rom,color):
     collection = db[pc]
     rating = 1
     pc = str(pc)
@@ -125,12 +125,12 @@ def one_star_scrap(pc,oner):
             date = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/span').text
             date = date.replace('Reviewed in India on ','')
             review = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/div[4]/span/span')
-            collection.update_one({"review": review.text},{'$set':{"review":review.text,"date":date,"heading":heading.text,"rating":rating}},upsert=True)
+            collection.update_one({"review": review.text},{'$set':{"review":review.text,"date":date,"heading":heading.text,"rating":rating,"ram":ram,"rom":rom,"color":color}},upsert=True)
     driver.quit()
 
 
 # getting the initial number of reviews sorted
-def number(pc):
+def number(pc,ram,rom,color):
     driver = webdriver.Chrome()
     # getting number of one_star reviews
     try:
@@ -142,7 +142,7 @@ def number(pc):
         tmp1 = re.findall(r'\d+',oner)
         res1 = list(map(int,tmp1))
         oner = int(res1[1])
-        one_star_scrap(pc,oner)
+        one_star_scrap(pc,oner,ram,rom,color)
     except NoSuchElementException:
         pass
 
@@ -155,7 +155,7 @@ def number(pc):
         tmp2 = re.findall(r'\d+',twor)
         res2 = list(map(int,tmp2))
         twor = int(res2[1])
-        two_star_scrap(pc,twor)
+        two_star_scrap(pc,twor,ram,rom,color)
     except NoSuchElementException:
         pass
 
@@ -168,7 +168,7 @@ def number(pc):
         tmp3 = re.findall(r'\d+',threer)
         res3 = list(map(int,tmp3))
         threer = int(res3[1])
-        three_star_scrap(pc,threer)
+        three_star_scrap(pc,threer,ram,rom,color)
     except NoSuchElementException:
         pass
 
@@ -181,7 +181,7 @@ def number(pc):
         tmp4 = re.findall(r'\d+',fourr)
         res4 = list(map(int,tmp4))
         fourr = int(res4[1])
-        four_star_scrap(pc,fourr)
+        four_star_scrap(pc,fourr,ram,rom,color)
     except NoSuchElementException:
         pass
     # getting the number of five_star reviews
@@ -193,7 +193,7 @@ def number(pc):
         tmp5 = re.findall(r'\d+',fiver)
         res5 = list(map(int,tmp5))
         fiver = int(res5[1])
-        five_star_scrap(pc,fiver)
+        five_star_scrap(pc,fiver,ram,rom,color)
     except NoSuchElementException:
         pass
     driver.quit()
@@ -226,11 +226,13 @@ def number(pc):
         pass
     
 def read():
-    for doc in col.find({'pc':{"$in":["B086978F2L","B08697KLZP","B08696XB4B","B08697N43G"]}}):
+    for doc in col.find({'pc':{"$in":["B086984LJ4","B08697MJDK","B08696XM8J","B086978F28"]}}):
     # for doc in col.find({}):
-        number(doc['pc'])
+        ram = doc['ram']
+        rom = doc['rom']
+        color = doc['color']
+        pc = doc['pc']
+        number(pc,ram,rom,color)
 
 if __name__ == '__main__':
     read()
-
-   
