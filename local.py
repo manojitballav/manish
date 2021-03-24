@@ -14,7 +14,7 @@ pc = 'B089MTR9JB'
 
 #reading the number of reviews from Amazon Product Page
 driver = webdriver.Chrome()
-driver.get("https://www.amazon.in/product-reviews/B089MTR9JB/")
+driver.get("https://www.amazon.in/product-reviews/"+pc+"/")
 number = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div/div[1]/div/div[1]/div[4]/div/span').text
 print(number)
 # driver.quit()
@@ -29,7 +29,7 @@ print("Number of reviews are: "+str(number[1]))
 # Getting the number of review of each scale and scraping them
 
 # #1 star reviews
-driver.get('https://www.amazon.in/product-reviews/B089MS8WGP/ref=cm_cr_arp_d_viewopt_srt?filterByStar=one_star&pageNumber=1&sortBy=recent')
+driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_arp_d_viewopt_srt?filterByStar=one_star&pageNumber=1&sortBy=recent')
 number = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div/div[1]/div/div[1]/div[4]/div[2]/span').text
 print(number)
 number = number.replace(' global ratings','')
@@ -70,7 +70,7 @@ for val in range(1, number+1):
         print(count)
 
 # 2 star reviews
-driver.get('https://www.amazon.in/product-reviews/B089MS8WGP/ref=cm_cr_arp_d_viewopt_srt?filterByStar=two_star&pageNumber=1&sortBy=recent')
+driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_arp_d_viewopt_srt?filterByStar=two_star&pageNumber=1&sortBy=recent')
 number = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div/div[1]/div/div[1]/div[4]/div[2]/span').text
 print(number)
 number = number.replace(' global ratings','')
@@ -111,7 +111,7 @@ for val in range(1, number+1):
         print(count)
 
 # 3 star reviews
-driver.get('https://www.amazon.in/product-reviews/B089MS8WGP/ref=cm_cr_arp_d_viewopt_srt?filterByStar=three_star&pageNumber=1&sortBy=recent')
+driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_arp_d_viewopt_srt?filterByStar=three_star&pageNumber=1&sortBy=recent')
 number = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div/div[1]/div/div[1]/div[4]/div[2]/span').text
 print(number)
 number = number.replace(' global ratings','')
@@ -153,7 +153,7 @@ for val in range(1, number+1):
 
 
 # 4 star reviews
-driver.get('https://www.amazon.in/product-reviews/B089MS8WGP/ref=cm_cr_arp_d_viewopt_srt?filterByStar=four_star&pageNumber=1&sortBy=recent')
+driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_arp_d_viewopt_srt?filterByStar=four_star&pageNumber=1&sortBy=recent')
 number = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div/div[1]/div/div[1]/div[4]/div[2]/span').text
 print(number)
 number = number.replace(' global ratings','')
@@ -195,7 +195,7 @@ for val in range(1, number+1):
 
 
 # 5 star reviews
-driver.get('https://www.amazon.in/product-reviews/B089MS8WGP/ref=cm_cr_arp_d_viewopt_srt?filterByStar=five_star&pageNumber=1&sortBy=recent')
+driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_arp_d_viewopt_srt?filterByStar=five_star&pageNumber=1&sortBy=recent')
 number = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div/div[1]/div/div[1]/div[4]/div[2]/span').text
 print(number)
 number = number.replace(' global ratings','')
