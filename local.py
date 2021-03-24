@@ -6,15 +6,15 @@ from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 
 # database connections
-client = MongoClient('127.0.0.1',27017)
+client = MongoClient('10.56.146.102',27017)
 # db = client['Manish']
 db = client['manish']
 col = db['asin']
-pc = 'B089MS8WGP'
+pc = 'B089MTR9JB'
 
 #reading the number of reviews from Amazon Product Page
 driver = webdriver.Chrome()
-driver.get("https://www.amazon.in/product-reviews/B089MS8WGP")
+driver.get("https://www.amazon.in/product-reviews/B089MTR9JB/")
 number = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div/div[1]/div/div[1]/div[4]/div/span').text
 print(number)
 # driver.quit()
