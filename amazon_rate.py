@@ -7,7 +7,9 @@ from selenium.common.exceptions import NoSuchElementException
 
 # database connections
 client = MongoClient('10.56.146.102',27017)
+# client = MongoClient('127.0.0.1',27017)
 db = client['Manish']
+# db = client['manish']
 col = db['asin']
 
 # for scraping reviews with 5 star rating
@@ -16,23 +18,25 @@ def five_star_scrap(pc,fiver,ram,rom,color):
     rating = 5
     pc = str(pc)
     driver = webdriver.Chrome()
-    if(fiver < 10):
-        page = int(fiver)
-    elif(fiver>=10):
-        page = (fiver//10)+1
-    else:
-        print("Brains Fried")
-
-    for val in range(1,page+1):
+    # if(fiver < 10):
+    #     page = int(fiver)
+    # elif(fiver>=10):
+    #     page = (fiver//10)+1
+    # else:
+    #     print("Brains Fried")
+    print("5 star")
+    for val in range(1,81):
         val = str(val)
+        print(val)
         driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_getr_d_paging_btm_next_'+val+'?ie=UTF8&reviewerType=all_reviews&filterByStar=five_star&pageNumber='+val+'&sortBy=recent')
+        driver.implicitly_wait(10)
         # new method:
         for mal in range(1,11):
             heading = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/div[2]/a[2]/span')
             date = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/span').text
             date = date.replace('Reviewed in India on ','')
             review = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/div[4]/span/span')
-            collection.update_one({"review": review.text},{'$set':{"review":review.text,"date":date,"heading":heading.text,"rating":rating,"ram":ram,"rom":rom,"color":color}},upsert=True)
+            collection.insert_one({"review":review.text,"date":date,"heading":heading.text,"rating":rating,"ram":ram,"rom":rom,"color":color})
     driver.quit()
 
 # for scraping reviews with 4 star rating
@@ -42,21 +46,26 @@ def four_star_scrap(pc,fourr,ram,rom,color):
     rating = 4
     pc = str(pc)
     driver = webdriver.Chrome()
-    if(fourr < 10):
-        page = int(fourr)
-    elif(fourr>=10):
-        page = (fourr//10)+1
-    else:
-        print("Brains Fried")
+    # if(fourr < 10):
+    #     page = int(fourr)
+    # elif(fourr>=10):
+    #     page = (fourr//10)+1
+    # else:
+    #     print("Brains Fried")
+    page = 34
+    print("4 star")
     for val in range(1,page+1):
         val = str(val)
+        print(val)
         driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_getr_d_paging_btm_next_'+val+'?ie=UTF8&reviewerType=all_reviews&filterByStar=four_star&pageNumber='+val+'&sortBy=recent')
+        driver.implicitly_wait(10)
         for mal in range(1,11):
             heading = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/div[2]/a[2]/span')
             date = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/span').text
             date = date.replace('Reviewed in India on ','')
             review = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/div[4]/span/span')
-            collection.update_one({"review": review.text},{'$set':{"review":review.text,"date":date,"heading":heading.text,"rating":rating,"ram":ram,"rom":rom,"color":color}},upsert=True)
+            # collection.update_one({"review": review.text},{'$set':{"review":review.text,"date":date,"heading":heading.text,"rating":rating,"ram":ram,"rom":rom,"color":color}},upsert=True)
+            collection.insert_one({"review":review.text,"date":date,"heading":heading.text,"rating":rating,"ram":ram,"rom":rom,"color":color})
     driver.quit()
 
 # for scraping reviews with 3 star rating
@@ -65,21 +74,26 @@ def three_star_scrap(pc,threer,ram,rom,color):
     rating = 3
     pc = str(pc)
     driver = webdriver.Chrome()
-    if(threer < 10):
-        page = int(threer)
-    elif(threer>=10):
-        page = (threer//10)+1
-    else:
-        print("Brains Fried")
+    # if(threer < 10):
+    #     page = int(threer)
+    # elif(threer>=10):
+    #     page = (threer//10)+1
+    # else:
+    #     print("Brains Fried")
+    page = 21
+    print("3 star")
     for val in range(1,page+1):
         val = str(val)
+        print(val)
         driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_getr_d_paging_btm_next_'+val+'?ie=UTF8&reviewerType=all_reviews&filterByStar=three_star&pageNumber='+val+'&sortBy=recent')
+        driver.implicitly_wait(10)
         for mal in range(1,11):
             heading = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/div[2]/a[2]/span')
             date = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/span').text
             date = date.replace('Reviewed in India on ','')
             review = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/div[4]/span/span')
-            collection.update_one({"review": review.text},{'$set':{"review":review.text,"date":date,"heading":heading.text,"rating":rating,"ram":ram,"rom":rom,"color":color}},upsert=True)
+            # collection.update_one({"review": review.text},{'$set':{"review":review.text,"date":date,"heading":heading.text,"rating":rating,"ram":ram,"rom":rom,"color":color}},upsert=True)
+            collection.insert_one({"review":review.text,"date":date,"heading":heading.text,"rating":rating,"ram":ram,"rom":rom,"color":color})
     driver.quit()
 
 # for reviews with 2 star rating
@@ -88,21 +102,26 @@ def two_star_scrap(pc,twor,ram,rom,color):
     rating = 2
     pc = str(pc)
     driver = webdriver.Chrome()
-    if(twor < 10):
-        page = int(twor)
-    elif(twor>=10):
-        page = (twor//10)+1
-    else:
-        print("Brains Fried")
+    # if(twor < 10):
+    #     page = int(twor)
+    # elif(twor>=10):
+    #     page = (twor//10)+1
+    # else:
+    #     print("Brains Fried")
+    page = 14
+    print("2 star")
     for val in range(1,page+1):
         val = str(val)
+        print(val)
         driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_getr_d_paging_btm_next_'+val+'?ie=UTF8&reviewerType=all_reviews&filterByStar=two_star&pageNumber='+val+'&sortBy=recent')
+        driver.implicitly_wait(10)
         for mal in range(1,11):
             heading = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/div[2]/a[2]/span')
             date = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/span').text
             date = date.replace('Reviewed in India on ','')
             review = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/div[4]/span/span')
-            collection.update_one({"review": review.text},{'$set':{"review":review.text,"date":date,"heading":heading.text,"rating":rating,"ram":ram,"rom":rom,"color":color}},upsert=True)
+            # collection.update_one({"review": review.text},{'$set':{"review":review.text,"date":date,"heading":heading.text,"rating":rating,"ram":ram,"rom":rom,"color":color}},upsert=True)
+            collection.insert_one({"review":review.text,"date":date,"heading":heading.text,"rating":rating,"ram":ram,"rom":rom,"color":color})
     driver.quit()
 
 # for reveiws with one star rating
@@ -111,21 +130,25 @@ def one_star_scrap(pc,oner,ram,rom,color):
     rating = 1
     pc = str(pc)
     driver = webdriver.Chrome()
-    if(oner < 10):
-        page = int(oner)
-    elif(oner>=10):
-        page = (oner//10)+1
-    else:
-        print("Brains Fried")
+    # if(oner < 10):
+    #     page = int(oner)
+    # elif(oner>=10):
+    #     page = (oner//10)+1
+    # else:
+    #     print("Brains Fried")
+    page = 40
+    print("1 star")
     for val in range(1,page+1):
         val = str(val)
+        print(val)
         driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_getr_d_paging_btm_next_'+val+'?ie=UTF8&reviewerType=all_reviews&filterByStar=one_star&pageNumber='+val+'&sortBy=recent')
+        driver.implicitly_wait(10)
         for mal in range(1,11):
             heading = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/div[2]/a[2]/span')
             date = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/span').text
             date = date.replace('Reviewed in India on ','')
             review = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/div[4]/span/span')
-            collection.update_one({"review": review.text},{'$set':{"review":review.text,"date":date,"heading":heading.text,"rating":rating,"ram":ram,"rom":rom,"color":color}},upsert=True)
+            collection.update_one({"review": review.text,"date":date,"rating":rating,"date":date},{'$set':{"review":review.text,"date":date,"heading":heading.text,"rating":rating,"ram":ram,"rom":rom,"color":color}},upsert=True)
     driver.quit()
 
 
@@ -226,7 +249,7 @@ def number(pc,ram,rom,color):
         pass
     
 def read():
-    for doc in col.find({'pc':{"$in":["B086984LJ4","B08697MJDK","B08696XM8J","B086978F28"]}}):
+    for doc in col.find({'pc':{"$in":["B089MTR9JB"]}}):
     # for doc in col.find({}):
         ram = doc['ram']
         rom = doc['rom']
