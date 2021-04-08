@@ -18,14 +18,14 @@ def five_star_scrap(pc,fiver,ram,rom,color):
     rating = 5
     pc = str(pc)
     driver = webdriver.Chrome()
-    # if(fiver < 10):
-    #     page = int(fiver)
-    # elif(fiver>=10):
-    #     page = (fiver//10)+1
-    # else:
-    #     print("Brains Fried")
+    if(fiver < 10):
+        page = int(fiver)
+    elif(fiver>=10):
+        page = (fiver//10)+1
+    else:
+        print("Brains Fried")
     print("5 star")
-    for val in range(1,81):
+    for val in range(1,page+1):
         val = str(val)
         print(val)
         driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_getr_d_paging_btm_next_'+val+'?ie=UTF8&reviewerType=all_reviews&filterByStar=five_star&pageNumber='+val+'&sortBy=recent')
@@ -46,13 +46,12 @@ def four_star_scrap(pc,fourr,ram,rom,color):
     rating = 4
     pc = str(pc)
     driver = webdriver.Chrome()
-    # if(fourr < 10):
-    #     page = int(fourr)
-    # elif(fourr>=10):
-    #     page = (fourr//10)+1
-    # else:
-    #     print("Brains Fried")
-    page = 34
+    if(fourr < 10):
+        page = int(fourr)
+    elif(fourr>=10):
+        page = (fourr//10)+1
+    else:
+        print("Brains Fried")
     print("4 star")
     for val in range(1,page+1):
         val = str(val)
@@ -74,13 +73,13 @@ def three_star_scrap(pc,threer,ram,rom,color):
     rating = 3
     pc = str(pc)
     driver = webdriver.Chrome()
-    # if(threer < 10):
-    #     page = int(threer)
-    # elif(threer>=10):
-    #     page = (threer//10)+1
-    # else:
-    #     print("Brains Fried")
-    page = 21
+    if(threer < 10):
+        page = int(threer)
+    elif(threer>=10):
+        page = (threer//10)+1
+    else:
+        print("Brains Fried")
+
     print("3 star")
     for val in range(1,page+1):
         val = str(val)
@@ -102,13 +101,12 @@ def two_star_scrap(pc,twor,ram,rom,color):
     rating = 2
     pc = str(pc)
     driver = webdriver.Chrome()
-    # if(twor < 10):
-    #     page = int(twor)
-    # elif(twor>=10):
-    #     page = (twor//10)+1
-    # else:
-    #     print("Brains Fried")
-    page = 14
+    if(twor < 10):
+        page = int(twor)
+    elif(twor>=10):
+        page = (twor//10)+1
+    else:
+        print("Brains Fried")
     print("2 star")
     for val in range(1,page+1):
         val = str(val)
@@ -130,13 +128,12 @@ def one_star_scrap(pc,oner,ram,rom,color):
     rating = 1
     pc = str(pc)
     driver = webdriver.Chrome()
-    # if(oner < 10):
-    #     page = int(oner)
-    # elif(oner>=10):
-    #     page = (oner//10)+1
-    # else:
-    #     print("Brains Fried")
-    page = 40
+    if(oner < 10):
+        page = int(oner)
+    elif(oner>=10):
+        page = (oner//10)+1
+    else:
+        print("Brains Fried")
     print("1 star")
     for val in range(1,page+1):
         val = str(val)
