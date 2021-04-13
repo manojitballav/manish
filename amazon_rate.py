@@ -25,18 +25,33 @@ def five_star_scrap(pc,fiver,ram,rom,color):
     else:
         print("Brains Fried")
     print("5 star")
-    for val in range(1,page+1):
-        val = str(val)
-        print(val)
-        driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_getr_d_paging_btm_next_'+val+'?ie=UTF8&reviewerType=all_reviews&filterByStar=five_star&pageNumber='+val+'&sortBy=recent')
-        driver.implicitly_wait(10)
-        # new method:
-        for mal in range(1,11):
-            heading = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/div[2]/a[2]/span')
-            date = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/span').text
-            date = date.replace('Reviewed in India on ','')
-            review = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/div[4]/span/span')
-            collection.insert_one({"review":review.text,"date":date,"heading":heading.text,"rating":rating,"ram":ram,"rom":rom,"color":color})
+    try:
+        for val in range(1,31):
+            val = str(val)
+            print(val)
+            driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_getr_d_paging_btm_next_'+val+'?ie=UTF8&reviewerType=all_reviews&filterByStar=five_star&pageNumber='+val+'&sortBy=recent')
+            driver.implicitly_wait(20)
+            # new method:
+            for mal in range(1,11):
+                try:
+                    heading = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/div[2]/a[2]/span')
+                except Exception as e1:
+                    print("Issue with head: "+str(e1))
+                try:
+                    date = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/span').text
+                except Exception as e2:
+                    print("Issue with date: "+str(e2))
+                date = date.replace('Reviewed in India on ','')
+                try:
+                    review = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/div[4]/span/span')
+                except Exception as e3:
+                    print("Issue with review: " +str(e3))
+                try:
+                    collection.insert_one({"review":review.text,"date":date,"heading":heading.text,"rating":rating,"ram":ram,"rom":rom,"color":color})
+                except Exception as e4:
+                    print("Erro with inserting the document: "+str(e4))
+    except Exception as e:
+        print(e)
     driver.quit()
 
 # for scraping reviews with 4 star rating
@@ -53,18 +68,33 @@ def four_star_scrap(pc,fourr,ram,rom,color):
     else:
         print("Brains Fried")
     print("4 star")
-    for val in range(1,page+1):
-        val = str(val)
-        print(val)
-        driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_getr_d_paging_btm_next_'+val+'?ie=UTF8&reviewerType=all_reviews&filterByStar=four_star&pageNumber='+val+'&sortBy=recent')
-        driver.implicitly_wait(10)
-        for mal in range(1,11):
-            heading = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/div[2]/a[2]/span')
-            date = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/span').text
-            date = date.replace('Reviewed in India on ','')
-            review = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/div[4]/span/span')
-            # collection.update_one({"review": review.text},{'$set':{"review":review.text,"date":date,"heading":heading.text,"rating":rating,"ram":ram,"rom":rom,"color":color}},upsert=True)
-            collection.insert_one({"review":review.text,"date":date,"heading":heading.text,"rating":rating,"ram":ram,"rom":rom,"color":color})
+    try:
+        for val in range(1,31):
+            val = str(val)
+            print(val)
+            driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_getr_d_paging_btm_next_'+val+'?ie=UTF8&reviewerType=all_reviews&filterByStar=four_star&pageNumber='+val+'&sortBy=recent')
+            driver.implicitly_wait(20)
+            # new method:
+            for mal in range(1,11):
+                try:
+                    heading = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/div[2]/a[2]/span')
+                except Exception as e1:
+                    print("Issue with head: "+str(e1))
+                try:
+                    date = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/span').text
+                except Exception as e2:
+                    print("Issue with date: "+str(e2))
+                date = date.replace('Reviewed in India on ','')
+                try:
+                    review = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/div[4]/span/span')
+                except Exception as e3:
+                    print("Issue with review: " +str(e3))
+                try:
+                    collection.insert_one({"review":review.text,"date":date,"heading":heading.text,"rating":rating,"ram":ram,"rom":rom,"color":color})
+                except Exception as e4:
+                    print("Erro with inserting the document: "+str(e4))
+    except Exception as e:
+        print(e)
     driver.quit()
 
 # for scraping reviews with 3 star rating
@@ -81,18 +111,36 @@ def three_star_scrap(pc,threer,ram,rom,color):
         print("Brains Fried")
 
     print("3 star")
-    for val in range(1,page+1):
-        val = str(val)
-        print(val)
-        driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_getr_d_paging_btm_next_'+val+'?ie=UTF8&reviewerType=all_reviews&filterByStar=three_star&pageNumber='+val+'&sortBy=recent')
-        driver.implicitly_wait(10)
-        for mal in range(1,11):
-            heading = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/div[2]/a[2]/span')
-            date = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/span').text
-            date = date.replace('Reviewed in India on ','')
-            review = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/div[4]/span/span')
-            # collection.update_one({"review": review.text},{'$set':{"review":review.text,"date":date,"heading":heading.text,"rating":rating,"ram":ram,"rom":rom,"color":color}},upsert=True)
-            collection.insert_one({"review":review.text,"date":date,"heading":heading.text,"rating":rating,"ram":ram,"rom":rom,"color":color})
+    try:
+        for val in range(1,31):
+            val = str(val)
+            print(val)
+            driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_getr_d_paging_btm_next_'+val+'?ie=UTF8&reviewerType=all_reviews&filterByStar=three_star&pageNumber='+val+'&sortBy=recent')
+            driver.implicitly_wait(20)
+            # new method:
+            for mal in range(1,11):
+                try:
+                    heading = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/div[2]/a[2]/span')
+                except Exception as e1:
+                    heading = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal+1)+']/div/div/div[2]/a[2]/span[1]')
+                    print("Issue with head: "+str(e1))
+                try:
+                    date = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/span').text
+                except Exception as e2:
+                    date = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal+1)+']/div/div/span').text
+                    print("Issue with date: "+str(e2))
+                date = date.replace('Reviewed in India on ','')
+                try:
+                    review = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/div[4]/span/span')
+                except Exception as e3:
+                    review = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal+1)+']/div/div/div[4]/span/span[1]')
+                    print("Issue with review: " +str(e3))
+                try:
+                    collection.insert_one({"review":review.text,"date":date,"heading":heading.text,"rating":rating,"ram":ram,"rom":rom,"color":color})
+                except Exception as e4:
+                    print("Erro with inserting the document: "+str(e4))
+    except Exception as e:
+        print(e)
     driver.quit()
 
 # for reviews with 2 star rating
@@ -108,18 +156,33 @@ def two_star_scrap(pc,twor,ram,rom,color):
     else:
         print("Brains Fried")
     print("2 star")
-    for val in range(1,page+1):
-        val = str(val)
-        print(val)
-        driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_getr_d_paging_btm_next_'+val+'?ie=UTF8&reviewerType=all_reviews&filterByStar=two_star&pageNumber='+val+'&sortBy=recent')
-        driver.implicitly_wait(10)
-        for mal in range(1,11):
-            heading = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/div[2]/a[2]/span')
-            date = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/span').text
-            date = date.replace('Reviewed in India on ','')
-            review = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/div[4]/span/span')
-            # collection.update_one({"review": review.text},{'$set':{"review":review.text,"date":date,"heading":heading.text,"rating":rating,"ram":ram,"rom":rom,"color":color}},upsert=True)
-            collection.insert_one({"review":review.text,"date":date,"heading":heading.text,"rating":rating,"ram":ram,"rom":rom,"color":color})
+    try:
+        for val in range(1,31):
+            val = str(val)
+            print(val)
+            driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_getr_d_paging_btm_next_'+val+'?ie=UTF8&reviewerType=all_reviews&filterByStar=two_star&pageNumber='+val+'&sortBy=recent')
+            driver.implicitly_wait(20)
+            # new method:
+            for mal in range(1,11):
+                try:
+                    heading = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/div[2]/a[2]/span')
+                except Exception as e1:
+                    print("Issue with head: "+str(e1))
+                try:
+                    date = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/span').text
+                except Exception as e2:
+                    print("Issue with date: "+str(e2))
+                date = date.replace('Reviewed in India on ','')
+                try:
+                    review = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/div[4]/span/span')
+                except Exception as e3:
+                    print("Issue with review: " +str(e3))
+                try:
+                    collection.insert_one({"review":review.text,"date":date,"heading":heading.text,"rating":rating,"ram":ram,"rom":rom,"color":color})
+                except Exception as e4:
+                    print("Erro with inserting the document: "+str(e4))
+    except Exception as e:
+        print(e)
     driver.quit()
 
 # for reveiws with one star rating
@@ -135,17 +198,33 @@ def one_star_scrap(pc,oner,ram,rom,color):
     else:
         print("Brains Fried")
     print("1 star")
-    for val in range(1,page+1):
-        val = str(val)
-        print(val)
-        driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_getr_d_paging_btm_next_'+val+'?ie=UTF8&reviewerType=all_reviews&filterByStar=one_star&pageNumber='+val+'&sortBy=recent')
-        driver.implicitly_wait(10)
-        for mal in range(1,11):
-            heading = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/div[2]/a[2]/span')
-            date = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/span').text
-            date = date.replace('Reviewed in India on ','')
-            review = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/div[4]/span/span')
-            collection.update_one({"review": review.text,"date":date,"rating":rating,"date":date},{'$set':{"review":review.text,"date":date,"heading":heading.text,"rating":rating,"ram":ram,"rom":rom,"color":color}},upsert=True)
+    try:
+        for val in range(1,31):
+            val = str(val)
+            print(val)
+            driver.get('https://www.amazon.in/product-reviews/'+pc+'/ref=cm_cr_getr_d_paging_btm_next_'+val+'?ie=UTF8&reviewerType=all_reviews&filterByStar=one_star&pageNumber='+val+'&sortBy=recent')
+            driver.implicitly_wait(20)
+            # new method:
+            for mal in range(1,11):
+                try:
+                    heading = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/div[2]/a[2]/span')
+                except Exception as e1:
+                    print("Issue with head: "+str(e1))
+                try:
+                    date = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/span').text
+                except Exception as e2:
+                    print("Issue with date: "+str(e2))
+                date = date.replace('Reviewed in India on ','')
+                try:
+                    review = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[1]/div[1]/div/div[1]/div[5]/div[3]/div/div['+str(mal)+']/div/div/div[4]/span/span')
+                except Exception as e3:
+                    print("Issue with review: " +str(e3))
+                try:
+                    collection.insert_one({"review":review.text,"date":date,"heading":heading.text,"rating":rating,"ram":ram,"rom":rom,"color":color})
+                except Exception as e4:
+                    print("Erro with inserting the document: "+str(e4))
+    except Exception as e:
+        print(e)
     driver.quit()
 
 
@@ -246,7 +325,7 @@ def number(pc,ram,rom,color):
         pass
     
 def read():
-    for doc in col.find({'pc':{"$in":["B089MTR9JB"]}}):
+    for doc in col.find({'pc':{"$in":["B08XJBPCTR"]}}):
     # for doc in col.find({}):
         ram = doc['ram']
         rom = doc['rom']
