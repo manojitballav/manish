@@ -8,8 +8,8 @@ from selenium.common.exceptions import NoSuchElementException
 # database connections
 client = MongoClient('10.56.146.102',27017)
 # client = MongoClient('127.0.0.1',27017)
-db = client['Manish']
-# db = client['manish']
+# db = client['Manish']
+db = client['manish']
 col = db['asin']
 
 # for scraping reviews with 5 star rating
