@@ -10,7 +10,7 @@ client = MongoClient('10.56.146.102',27017)
 # db = client['Manish']
 db = client['manish']
 col = db['asin']
-pc = 'B089MTR9JB'
+pc = 'B08RSY2653'
 
 #reading the number of reviews from Amazon Product Page
 driver = webdriver.Chrome()
